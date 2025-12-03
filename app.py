@@ -433,8 +433,15 @@ def render_fighter_recommendations(selected_genres, selected_themes, selected_ty
                 </div>
             """, unsafe_allow_html=True)
             
-            # Expandable profile
-            with st.expander("View Full Profile", expanded=False):
+            # Toggle button for profile
+            profile_key = f"show_profile_{rec['fighter_name']}_{idx}"
+            if profile_key not in st.session_state:
+                st.session_state[profile_key] = False
+            
+            if st.button("View Full Profile", key=profile_key):
+                st.session_state[profile_key] = not st.session_state[profile_key]
+            
+            if st.session_state[profile_key]:
                 render_fighter_profile(rec['fighter_name'], fighters_df, mapping_df, content_df)
             
             st.markdown("<br>", unsafe_allow_html=True)
@@ -612,7 +619,15 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
     for idx, bundle in enumerate(bundle_list):
         bundle_title = bundle['content']['title'] if bundle['content'] else f"Bundle {idx + 1}"
         
-        with st.expander(f"{bundle_title} - Thematic Bundle"):
+        # Use button toggle instead of expander to avoid icon rendering issues
+        bundle_key = f"show_bundle_{idx}"
+        if bundle_key not in st.session_state:
+            st.session_state[bundle_key] = False
+        
+        if st.button(f"{bundle_title} - Thematic Bundle", key=bundle_key):
+            st.session_state[bundle_key] = not st.session_state[bundle_key]
+        
+        if st.session_state[bundle_key]:
             # Content
             if bundle['content']:
                 st.subheader("Content")
@@ -663,6 +678,8 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
             if bundle['thematic_connection']:
                 st.subheader("Why This Bundle Works")
                 st.write(bundle['thematic_connection'])
+            
+            st.markdown("---")
 
 
 if __name__ == "__main__":
