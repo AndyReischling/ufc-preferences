@@ -158,6 +158,11 @@ def main():
         if mapping_df.empty:
             st.error("Content-fighter mapping not found. Please ensure 'content_fighter_mapping.csv' exists.")
             return
+        
+        # Fight data is optional - app can function without it
+        if fight_data.empty:
+            # Silently continue - fight data is only used for bundles
+            pass
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
         st.info("Please ensure all required CSV files are in the project directory.")
@@ -247,22 +252,22 @@ def render_sidebar(content_df, fighters_df=None):
         st.subheader("Filters")
         selected_genres = st.multiselect("Genre", all_genres, default=st.session_state.selected_genres, key="genre_filter")
         
-        # Expandable Themes menu
-        with st.expander("Narrative Themes", expanded=False):
-            st.caption("Select themes to find fighters with matching narratives")
-            selected_themes = st.multiselect(
-                "Choose themes", 
-                all_themes, 
-                default=st.session_state.selected_themes, 
-                key="theme_filter_expanded",
-                label_visibility="collapsed"
-            )
+        # Narrative Themes filter
+        st.write("**Narrative Themes**")
+        st.caption("Select themes to find fighters with matching narratives")
+        selected_themes = st.multiselect(
+            "Choose themes", 
+            all_themes, 
+            default=st.session_state.selected_themes, 
+            key="theme_filter",
+            label_visibility="collapsed"
+        )
         
         selected_characters = st.multiselect("Characters", all_characters, default=st.session_state.selected_characters, key="character_filter")
         
         # Update session state
         st.session_state.selected_genres = selected_genres
-        st.session_state.selected_themes = selected_themes  # Use the expanded selector value
+        st.session_state.selected_themes = selected_themes
         st.session_state.selected_characters = selected_characters
         
         st.markdown("---")

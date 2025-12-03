@@ -81,13 +81,13 @@ def load_fight_data():
     try:
         fight_file = Path(config.FIGHT_DATA_FILE)
         if not fight_file.exists():
-            st.warning(f"Fight data file not found: {fight_file}")
+            # Silently return empty DataFrame - fight data is optional
             return pd.DataFrame()
         
         df = pd.read_csv(fight_file)
         return df
     except Exception as e:
-        st.warning(f"Error loading fight data: {e}")
+        # Silently return empty DataFrame - fight data is optional
         return pd.DataFrame()
 
 
