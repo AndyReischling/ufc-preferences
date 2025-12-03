@@ -438,8 +438,10 @@ def render_fighter_recommendations(selected_genres, selected_themes, selected_ty
             if profile_key not in st.session_state:
                 st.session_state[profile_key] = False
             
-            if st.button("View Full Profile", key=profile_key):
+            button_label = "Hide Full Profile" if st.session_state[profile_key] else "View Full Profile"
+            if st.button(button_label, key=profile_key):
                 st.session_state[profile_key] = not st.session_state[profile_key]
+                st.rerun()
             
             if st.session_state[profile_key]:
                 render_fighter_profile(rec['fighter_name'], fighters_df, mapping_df, content_df)
@@ -624,8 +626,10 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
         if bundle_key not in st.session_state:
             st.session_state[bundle_key] = False
         
-        if st.button(f"{bundle_title} - Thematic Bundle", key=bundle_key):
+        button_label = f"Hide {bundle_title} - Thematic Bundle" if st.session_state[bundle_key] else f"{bundle_title} - Thematic Bundle"
+        if st.button(button_label, key=bundle_key):
             st.session_state[bundle_key] = not st.session_state[bundle_key]
+            st.rerun()
         
         if st.session_state[bundle_key]:
             # Content
