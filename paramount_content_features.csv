@@ -1,0 +1,55 @@
+themes,character_archetypes,narrative_patterns,genres,title,type
+"['rivalry', 'struggle', 'legacy', 'survival', 'aggression']",['protector'],['rivalry_arc'],"['drama', 'western']",Yellowstone,TV Show
+"['struggle', 'legacy', 'survival', 'brotherhood']",['survivor'],[],"['western', 'drama']",1883,TV Show
+"['rivalry', 'struggle', 'legacy', 'survival', 'brotherhood']","['protector', 'survivor']",['legacy_continuation'],"['western', 'drama']",1923,TV Show
+"['redemption', 'legacy', 'leadership']",['hero'],[],"['action', 'drama']",Top Gun: Maverick,Movie
+"['brotherhood', 'leadership']",[],['rise_to_glory'],"['sci-fi', 'adventure']",Star Trek: Strange New Worlds,TV Show
+"['underdog', 'rivalry', 'brotherhood']",['challenger'],[],"['sci-fi', 'comedy']",Star Trek: Lower Decks,TV Show
+"['redemption', 'struggle', 'legacy', 'leadership']","['mentor', 'protector']",[],"['sci-fi', 'drama']",Star Trek: Picard,TV Show
+"['underdog', 'struggle']","['mentor', 'challenger']",[],"['drama', 'biography']",The Offer,TV Show
+"['brotherhood', 'precision', 'strategy']",['warrior'],[],"['action', 'military drama']",SEAL Team,TV Show
+['brotherhood'],[],[],"['crime', 'drama']",NCIS,TV Show
+"['rivalry', 'brotherhood', 'precision', 'strategy']",[],[],"['crime', 'drama']",NCIS: Los Angeles,TV Show
+"['triumph', 'leadership', 'precision', 'strategy']",['protector'],[],"['crime', 'drama']",NCIS: Hawai'i,TV Show
+"['rivalry', 'struggle', 'strategy']",[],['rivalry_arc'],"['reality', 'competition']",The Challenge,TV Show
+"['rivalry', 'precision', 'aggression']","['hero', 'warrior']",[],"['sports', 'combat sports']",UFC Fight Night,Sports
+"['triumph', 'legacy', 'survival']","['protector', 'survivor']",[],"['horror', 'thriller']",A Quiet Place Part II,Movie
+"['rivalry', 'struggle', 'survival']","['challenger', 'protector', 'survivor']",[],"['horror', 'thriller']",Scream,Movie
+"['redemption', 'struggle', 'legacy']",[],[],"['crime', 'drama']",The Godfather,Movie
+"['triumph', 'struggle', 'legacy', 'brotherhood']",[],[],"['crime', 'drama']",The Godfather Part II,Movie
+"['redemption', 'rivalry', 'precision', 'strategy']",['protector'],[],"['action', 'thriller']",Mission: Impossible,Movie
+"['redemption', 'triumph', 'brotherhood', 'precision', 'strategy']",['protector'],[],"['action', 'thriller']",Mission: Impossible - Fallout,Movie
+"['rivalry', 'triumph', 'survival', 'brotherhood']",['challenger'],['comeback_story'],"['comedy', 'documentary']",Jackass Forever,Movie
+"['rivalry', 'triumph', 'brotherhood', 'precision', 'strategy']",[],[],"['action', 'crime']",The Italian Job,Movie
+"['underdog', 'redemption', 'rivalry', 'struggle']",['challenger'],[],"['comedy', 'drama']",Mean Girls,Movie
+"['underdog', 'triumph', 'survival', 'brotherhood']","['challenger', 'protector']",[],"['animation', 'comedy']",The SpongeBob Movie: Sponge on the Run,Movie
+"['rivalry', 'triumph', 'struggle', 'leadership']",['protector'],[],"['action', 'sci-fi']",Transformers: Rise of the Beasts,Movie
+"['underdog', 'triumph', 'leadership']",['protector'],[],"['adventure', 'family']",Dora and the Lost City of Gold,Movie
+"['rivalry', 'triumph', 'precision', 'strategy']",[],[],"['drama', 'legal']",The Good Fight,TV Show
+"['rivalry', 'struggle', 'survival', 'precision']","['challenger', 'protector']",[],"['horror', 'drama']",Evil,TV Show
+"['redemption', 'rivalry', 'triumph', 'struggle']","['challenger', 'survivor']",[],"['drama', 'comedy']",Why Women Kill,TV Show
+"['redemption', 'rivalry', 'struggle', 'survival', 'aggression']","['protector', 'survivor']",[],"['drama', 'horror']",The Stand,TV Show
+"['underdog', 'redemption', 'struggle', 'precision']",['challenger'],[],"['crime', 'drama']",Interrogation,TV Show
+"['rivalry', 'triumph', 'struggle', 'brotherhood']",[],[],"['drama', 'sports']",The Game,TV Show
+"['redemption', 'rivalry', 'struggle', 'leadership']",['challenger'],[],"['crime', 'drama']",Tulsa King,TV Show
+"['rivalry', 'struggle', 'legacy', 'survival', 'leadership']",['protector'],[],"['crime', 'drama']",Mayor of Kingstown,TV Show
+"['triumph', 'struggle', 'leadership', 'precision', 'aggression']","['protector', 'warrior']",[],"['sci-fi', 'action']",Halo,TV Show
+"['underdog', 'struggle', 'survival', 'brotherhood']","['challenger', 'protector', 'survivor']",[],"['horror', 'drama']",Wolf Pack,TV Show
+"['redemption', 'rivalry', 'triumph', 'precision']",['challenger'],[],['comedy'],Frasier,TV Show
+"['underdog', 'rivalry', 'triumph', 'brotherhood']",['challenger'],[],"['comedy', 'family']",iCarly,TV Show
+"['underdog', 'survival', 'brotherhood']",['challenger'],[],"['animation', 'comedy']",Rugrats,TV Show
+"['underdog', 'redemption', 'triumph', 'leadership', 'precision']",['challenger'],[],"['animation', 'adventure']",Avatar: The Last Airbender,TV Show
+"['redemption', 'rivalry', 'struggle', 'leadership']",['challenger'],[],"['animation', 'adventure']",The Legend of Korra,TV Show
+"['underdog', 'rivalry', 'survival', 'brotherhood']",['challenger'],[],"['animation', 'comedy']",Beavis and Butt-Head,TV Show
+"['underdog', 'rivalry', 'struggle', 'brotherhood']",['challenger'],[],"['animation', 'comedy']",South Park,TV Show
+"['rivalry', 'struggle', 'survival', 'brotherhood']",['challenger'],[],['reality'],The Real World,TV Show
+"['redemption', 'rivalry', 'legacy', 'brotherhood']",['survivor'],[],['reality'],The Real World: Homecoming,TV Show
+"['rivalry', 'struggle', 'survival', 'strategy']",[],[],"['reality', 'competition']",Survivor,TV Show
+"['rivalry', 'survival', 'strategy']",[],[],"['reality', 'competition']",Big Brother,TV Show
+"['rivalry', 'triumph', 'struggle', 'brotherhood', 'strategy']",[],[],"['reality', 'competition']",The Amazing Race,TV Show
+"['triumph', 'precision', 'strategy']","['challenger', 'protector']",[],"['news', 'documentary']",60 Minutes,TV Show
+"['leadership', 'precision']",[],[],['news'],CBS Evening News,TV Show
+"['struggle', 'precision', 'strategy']",['challenger'],[],"['crime', 'documentary']",48 Hours,TV Show
+"['rivalry', 'triumph', 'strategy']",[],[],['sports'],NFL on CBS,Sports
+"['underdog', 'rivalry', 'triumph']",['challenger'],[],['sports'],NCAA March Madness,Sports
+"['rivalry', 'triumph', 'precision', 'strategy']",[],[],['sports'],PGA Tour,Sports

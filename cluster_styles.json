@@ -1,0 +1,72 @@
+{
+  "0": {
+    "style": "Well-Rounded Fighter",
+    "avg_strikes": 10.289454281161925,
+    "avg_accuracy": 0.45444369924809025,
+    "avg_takedowns": 0.3020494449443125,
+    "count": 156
+  },
+  "1": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 8.745044373911087,
+    "avg_accuracy": 0.5499724040852768,
+    "avg_takedowns": 0.5793980084217973,
+    "count": 104
+  },
+  "2": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 10.61104129682043,
+    "avg_accuracy": 0.44316823602535216,
+    "avg_takedowns": 0.692316668154297,
+    "count": 97
+  },
+  "3": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 9.909522379866,
+    "avg_accuracy": 0.47316633194584234,
+    "avg_takedowns": 0.41978530633262945,
+    "count": 130
+  },
+  "4": {
+    "style": "High-Volume Striker",
+    "avg_strikes": 11.400371399133974,
+    "avg_accuracy": 0.4206617023713894,
+    "avg_takedowns": 0.26421872224203463,
+    "count": 192
+  },
+  "5": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 10.488373738255932,
+    "avg_accuracy": 0.5107147988434778,
+    "avg_takedowns": 0.49226772718743683,
+    "count": 79
+  },
+  "6": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 63.21725684069531,
+    "avg_accuracy": 0.5257777777777778,
+    "avg_takedowns": 0.40593749999999995,
+    "count": 4
+  },
+  "7": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 9.758412815113216,
+    "avg_accuracy": 0.4810329684517134,
+    "avg_takedowns": 0.34768813790693004,
+    "count": 132
+  },
+  "8": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 9.637373514307129,
+    "avg_accuracy": 0.41857429751004815,
+    "avg_takedowns": 0.44621276935218446,
+    "count": 177
+  },
+  "9": {
+    "style": "Dominant Grappler",
+    "avg_strikes": 25.709874490566094,
+    "avg_accuracy": 0.47954353188866206,
+    "avg_takedowns": 0.44166334175084176,
+    "count": 61
+  }
+}
