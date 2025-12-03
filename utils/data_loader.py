@@ -70,23 +70,24 @@ def load_content_fighter_mapping():
         return pd.DataFrame()
 
 
-@st.cache_data
+@st.cache_data(ttl=3600, show_spinner=False)
 def load_fight_data():
     """
     Load UFC fight data for finding fights involving fighters.
+    Fight data is optional - returns empty DataFrame if file doesn't exist.
     
     Returns:
-        DataFrame with fight records
+        DataFrame with fight records (empty if file not found)
     """
+    # Fight data is optional - silently return empty DataFrame if file doesn't exist
+    fight_file = Path(config.FIGHT_DATA_FILE)
+    if not fight_file.exists():
+        return pd.DataFrame()
+    
     try:
-        fight_file = Path(config.FIGHT_DATA_FILE)
-        if not fight_file.exists():
-            # Silently return empty DataFrame - fight data is optional
-            return pd.DataFrame()
-        
         df = pd.read_csv(fight_file)
         return df
-    except Exception as e:
+    except Exception:
         # Silently return empty DataFrame - fight data is optional
         return pd.DataFrame()
 

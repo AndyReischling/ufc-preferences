@@ -141,11 +141,13 @@ def main():
     # Load data
     try:
         with st.spinner("Loading data..."):
-            data = data_loader.load_all_data()
-            content_df = data['content']
-            fighters_df = data['fighters']
-            mapping_df = data['mapping']
-            fight_data = data['fights']
+            # Load fight data separately to avoid any warnings
+            fight_data = data_loader.load_fight_data()
+            
+            # Load other required data
+            content_df = data_loader.load_content_catalog()
+            fighters_df = data_loader.load_fighter_data()
+            mapping_df = data_loader.load_content_fighter_mapping()
         
         if content_df.empty:
             st.error("Content catalog not found. Please ensure 'paramount_content_features.csv' exists.")
@@ -159,10 +161,7 @@ def main():
             st.error("Content-fighter mapping not found. Please ensure 'content_fighter_mapping.csv' exists.")
             return
         
-        # Fight data is optional - app can function without it
-        if fight_data.empty:
-            # Silently continue - fight data is only used for bundles
-            pass
+        # Fight data is optional - silently continue if empty (only used for bundles)
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
         st.info("Please ensure all required CSV files are in the project directory.")
