@@ -433,17 +433,11 @@ def render_fighter_recommendations(selected_genres, selected_themes, selected_ty
                 </div>
             """, unsafe_allow_html=True)
             
-            # Toggle button for profile
+            # Toggle checkbox for profile
             profile_key = f"show_profile_{rec['fighter_name']}_{idx}"
-            if profile_key not in st.session_state:
-                st.session_state[profile_key] = False
+            show_profile = st.checkbox("View Full Profile", key=profile_key, value=False)
             
-            button_label = "Hide Full Profile" if st.session_state[profile_key] else "View Full Profile"
-            if st.button(button_label, key=profile_key):
-                st.session_state[profile_key] = not st.session_state[profile_key]
-                st.rerun()
-            
-            if st.session_state[profile_key]:
+            if show_profile:
                 render_fighter_profile(rec['fighter_name'], fighters_df, mapping_df, content_df)
             
             st.markdown("<br>", unsafe_allow_html=True)
@@ -621,17 +615,11 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
     for idx, bundle in enumerate(bundle_list):
         bundle_title = bundle['content']['title'] if bundle['content'] else f"Bundle {idx + 1}"
         
-        # Use button toggle instead of expander to avoid icon rendering issues
+        # Use checkbox toggle instead of expander to avoid icon rendering issues
         bundle_key = f"show_bundle_{idx}"
-        if bundle_key not in st.session_state:
-            st.session_state[bundle_key] = False
+        show_bundle = st.checkbox(f"{bundle_title} - Thematic Bundle", key=bundle_key, value=False)
         
-        button_label = f"Hide {bundle_title} - Thematic Bundle" if st.session_state[bundle_key] else f"{bundle_title} - Thematic Bundle"
-        if st.button(button_label, key=bundle_key):
-            st.session_state[bundle_key] = not st.session_state[bundle_key]
-            st.rerun()
-        
-        if st.session_state[bundle_key]:
+        if show_bundle:
             # Content
             if bundle['content']:
                 st.subheader("Content")
