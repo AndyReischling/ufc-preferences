@@ -7,7 +7,16 @@ import pandas as pd
 import numpy as np
 import random
 import re
+import os
 from utils import themes
+
+# Try to import API generation function if available
+try:
+    from generate_unique_lore import generate_extended_biography_with_api
+    USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
+except ImportError:
+    USE_API_FOR_BIO = False
+    generate_extended_biography_with_api = None
 
 
 def get_fighter_profile(fighter_name, fighters_df):
