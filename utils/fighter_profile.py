@@ -269,31 +269,31 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
     reach_in = int(reach_inches % 12) if reach_inches else None
     reach_advantage = (reach_inches - height_inches) if (height_inches and reach_inches) else 0
     
-    # Helper function to add theme explanations based on stats and themes
-    def add_theme_explanations(paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str):
-        """Add paragraphs explaining why specific themes apply to this fighter"""
-        # High volume striker themes
+    # Helper function to add subtle, journalistic theme connections
+    def add_theme_explanations(paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age):
+        """Add paragraphs with subtle, NYT-style connections to themes - show don't tell"""
+        # High volume striker - subtle description
         if stats['strikes_per_min'] > 5.5:
-            paragraphs.append(f"{fighter_name}'s fighting style is defined by relentless pressure—averaging {stats['strikes_per_min']:.1f} strikes per minute, they overwhelm opponents through constant activity. This high-volume approach directly explains why themes of aggression and pressure fighting are central to their narrative. Their philosophy is simple: never let opponents breathe, never let them find rhythm, never stop attacking. This constant offensive pressure is what makes them a pressure fighter, and it's why these themes resonate so strongly with their fighting identity.")
+            paragraphs.append(f"In the octagon, {fighter_name} operates at a relentless pace, averaging {stats['strikes_per_min']:.1f} significant strikes per minute. Opponents describe fighting {fighter_name} as 'like being caught in a storm'—there's no respite, no moment to reset. The constant pressure forces mistakes, breaks rhythm, and gradually erodes an opponent's will. It's a style built on volume and persistence, where the accumulation of strikes matters more than any single blow.")
         elif stats['strike_accuracy'] > 0.55:
-            paragraphs.append(f"Precision defines {fighter_name}'s approach—with {stats['strike_accuracy']*100:.0f}% strike accuracy, every shot is calculated, every strike meaningful. This surgical methodology explains why themes of precision and technical mastery are fundamental to their story. They don't waste energy on wild swings; instead, they methodically break down opponents with measured, accurate attacks. This commitment to quality over quantity is what makes them a precision striker, and it's why themes of technical mastery and precision are so applicable to their narrative.")
+            paragraphs.append(f"What sets {fighter_name} apart is surgical precision. With {stats['strike_accuracy']*100:.0f}% strike accuracy, every shot is measured, every strike purposeful. There's no wasted motion, no wild swings. Instead, {fighter_name} methodically breaks down opponents, finding openings others miss, landing clean shots when they matter most. It's a patient approach that values quality over quantity, where timing and placement trump raw power.")
         
-        # Grappling themes
+        # Grappling - subtle description
         if stats['takedown_accuracy'] > 0.4:
-            paragraphs.append(f"The ground is {fighter_name}'s domain—their {stats['takedown_accuracy']*100:.0f}% takedown accuracy demonstrates superior grappling control. This ability to dictate where fights take place connects directly to themes of strategy and discipline. They don't simply react; they orchestrate, controlling every position, every transition, every moment of the fight. This tactical approach to combat is what makes them a strategic fighter, and it's why themes of strategy and discipline are core to their fighting identity.")
+            paragraphs.append(f"When the fight goes to the ground, {fighter_name} takes control. Their {stats['takedown_accuracy']*100:.0f}% takedown success rate reflects a fighter who can dictate where the fight takes place. They don't simply react to opportunities; they create them, setting up takedowns with striking combinations, controlling positions once they get there. It's a chess match played at full speed, where every move is calculated and every transition planned.")
         
-        # Career narrative themes
+        # Career narrative - subtle and journalistic
         if 'championship_quest' in themes_list or win_rate > 0.7:
-            paragraphs.append(f"Their {record_str} record tells a story of championship pursuit—{wins} victories representing a relentless drive toward greatness. This statistical success directly supports themes of championship quest and triumph. Each win is another step toward their ultimate goal, and their {win_rate*100:.0f}% win rate demonstrates the consistency required to compete at the elite level. These themes aren't just aspirational; they're validated by their performance record, making championship quest and triumph central to their narrative.")
+            paragraphs.append(f"The numbers tell a story: {wins} victories, a {win_rate*100:.0f}% win rate, a {record_str} record that speaks to consistency at the highest level. Each win has been another step forward, another test passed. There's a sense of momentum building, of a fighter who knows where they're going and has the discipline to get there. The path isn't easy—it never is—but {fighter_name} has shown they can navigate it.")
         
         if 'resilience' in themes_list and losses > 0:
-            paragraphs.append(f"Despite {losses} defeats, {fighter_name} has consistently bounced back, maintaining a {win_rate*100:.0f}% win rate. This ability to overcome adversity directly connects to themes of resilience and comeback stories. Their career isn't defined by setbacks, but by how they've responded to them. Every loss has been a teacher, every comeback a testament to mental fortitude. This resilience is what makes themes of resilience and comeback stories so central to their narrative—they've proven time and again that they can rise from defeat.")
+            paragraphs.append(f"The record shows {losses} defeats, but it also shows how {fighter_name} responded to them. After each loss, they returned—sometimes immediately, sometimes after taking time to rebuild. The pattern is consistent: setback, reflection, return, improvement. It's a career marked not by the absence of failure, but by the refusal to let failure define them. The losses taught lessons; the comebacks proved they learned them.")
         
         if 'veteran_wisdom' in themes_list or total_fights > 15:
-            paragraphs.append(f"With {total_fights} professional bouts, {fighter_name} carries the wisdom of experience. This extensive career directly correlates with themes of veteran wisdom and legacy. Each fight has added layers to their understanding of combat, and this accumulated knowledge shows in their tactical decisions, their ability to adapt, and their calm under pressure. Themes of veteran wisdom and legacy aren't just descriptors—they're earned through years of competition, making them fundamental to their fighting identity.")
+            paragraphs.append(f"After {total_fights} professional bouts, {fighter_name} has seen nearly everything the sport can offer. The experience shows in the small details: how they read opponents, how they adjust mid-fight, how they stay calm when others panic. There's a depth to their game that only comes with time—not just technical skill, but tactical understanding, the kind of knowledge that can't be taught, only earned.")
         
         if 'rookie_rise' in themes_list or (age and age < 28 and total_fights < 10):
-            paragraphs.append(f"Despite their relative youth, {fighter_name} has already shown remarkable promise with a {record_str} record. This early success connects to themes of rookie rise and rise to glory. Their career is still ascending, and each victory represents another step toward greatness. These themes capture the excitement of a fighter on the rise, someone whose best days are still ahead, making rookie rise and rise to glory central to their narrative.")
+            paragraphs.append(f"At this stage of their career, {fighter_name} represents possibility. The {record_str} record suggests promise, but more than that, it suggests potential. They're still learning, still growing, still discovering what they're capable of. Each fight reveals something new, each victory opens another door. The trajectory is upward, and the ceiling is still unknown.")
     
     bio_paragraphs = []
     
@@ -330,27 +330,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         frame_str = f"Their {height_ft}'{height_in}\" frame, " if height_inches else ""
         bio_paragraphs.append(f"Each strike tells a story: {stats['strikes_per_min']:.1f} per minute, {stats['strike_accuracy']*100:.0f}% finding their mark. {frame_str}their {stance.lower()} stance, their {record_str} record—all woven into the fabric of a fighter who {'dominates' if win_rate > 0.7 else 'perseveres' if win_rate > 0.5 else 'fights'} with {'precision' if stats['strike_accuracy'] > 0.5 else 'relentless determination'}.")
         
-        # Poetic explanation of fighting style themes
-        if stats['strikes_per_min'] > 5.5:
-            bio_paragraphs.append(f"The rhythm of {fighter_name}'s combat is relentless—{stats['strikes_per_min']:.1f} strikes per minute creating a symphony of pressure that never relents. This high-volume approach is why themes of aggression and pressure fighting resonate so deeply with their narrative. Like a storm that never breaks, they overwhelm opponents through sheer volume, each strike building upon the last in an unending cascade of offense.")
-        elif stats['strike_accuracy'] > 0.55:
-            bio_paragraphs.append(f"In the poetry of combat, {fighter_name} writes with precision—each {stats['strike_accuracy']*100:.0f}% accurate strike a carefully chosen word in a narrative of technical mastery. This surgical approach to fighting explains why themes of precision and technical mastery define their story. They don't waste movement or energy; every action is intentional, every strike purposeful, creating a narrative of calculated excellence.")
-        
-        if stats['takedown_accuracy'] > 0.4:
-            bio_paragraphs.append(f"The ground becomes their canvas, where {stats['takedown_accuracy']*100:.0f}% takedown accuracy paints a picture of strategic dominance. This grappling mastery connects to themes of strategy and discipline—they don't simply fight; they orchestrate, controlling every moment, every position, every breath of their opponent. The mat is their domain, and they are its master.")
-        
-        # Connect themes to personal narrative
-        if 'resilience' in themes_list:
-            bio_paragraphs.append(f"Through {losses} defeats, {fighter_name} has risen—each loss a lesson, each victory a testament to unbreakable spirit. This resilience isn't just a theme; it's the very essence of their journey. Every setback has been a stepping stone, every defeat a teacher, and their ability to rise again and again demonstrates why themes of resilience and comeback stories are so central to their narrative.")
-        
-        if 'veteran_wisdom' in themes_list:
-            bio_paragraphs.append(f"With {total_fights} battles behind them, {fighter_name} carries the wisdom of experience—themes of veteran wisdom and legacy aren't just descriptors, but earned titles. Each fight has added layers to their understanding of combat, and this accumulated knowledge shows in every calculated move, every strategic decision, every moment of calm under pressure.")
-        
-        if 'championship_quest' in themes_list:
-            bio_paragraphs.append(f"Their {wins} victories tell a story of championship pursuit—themes of triumph and championship quest aren't abstract concepts, but the driving force behind every training session, every fight, every moment of sacrifice. They fight not just to win, but to achieve greatness, and their record reflects this relentless pursuit of excellence.")
-        
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle, journalistic theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 2: Technical/Analytical
     elif writing_style == 2:
@@ -360,27 +341,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"Performance metrics: {stats['strikes_per_min']:.1f} SLpM (significant strikes landed per minute), {stats['strike_accuracy']*100:.0f}% accuracy rate. {physical_str}Stance: {stance}. {takedown_str}")
         bio_paragraphs.append(f"Win rate analysis: {win_rate*100:.0f}% ({wins}W-{losses}L-{draws}D). {'High-performance fighter' if win_rate > 0.7 else 'Competitive record' if win_rate > 0.5 else 'Developing fighter'} with {'strong finishing ability' if win_rate > 0.7 else 'consistent performance' if win_rate > 0.5 else 'potential for growth'}.")
         
-        # Technical explanation of theme connections
-        if stats['strikes_per_min'] > 5.5:
-            bio_paragraphs.append(f"Volume analysis: {fighter_name}'s {stats['strikes_per_min']:.1f} SLpM places them in the top tier of high-output strikers. This statistical profile directly correlates with themes of aggression and pressure fighting. The data shows a fighter who maintains constant offensive pressure, overwhelming opponents through volume rather than waiting for perfect opportunities. This fighting philosophy—backed by measurable performance metrics—explains why these themes are central to their narrative identity.")
-        elif stats['strike_accuracy'] > 0.55:
-            bio_paragraphs.append(f"Accuracy analysis: {fighter_name}'s {stats['strike_accuracy']*100:.0f}% strike accuracy demonstrates exceptional precision striking. This metric indicates a fighter who prioritizes quality over quantity, selecting optimal moments to engage. The statistical evidence supports themes of precision and technical mastery—their approach is methodical, calculated, and efficient. Every percentage point of accuracy represents hours of training and strategic decision-making, directly connecting their fighting style to these narrative themes.")
-        
-        if stats['takedown_accuracy'] > 0.4:
-            bio_paragraphs.append(f"Grappling metrics: {fighter_name}'s {stats['takedown_accuracy']*100:.0f}% takedown accuracy indicates superior grappling control. This statistical profile demonstrates why themes of strategy and discipline are applicable—their ability to successfully execute takedowns at this rate requires tactical planning, technical execution, and disciplined training. The data shows a fighter who can control where fights take place, directly supporting themes of strategic dominance and methodical control.")
-        
-        # Connect record to themes
-        if 'championship_quest' in themes_list or win_rate > 0.7:
-            bio_paragraphs.append(f"Performance correlation: {fighter_name}'s {win_rate*100:.0f}% win rate ({wins}W-{losses}L-{draws}D) demonstrates elite-level performance. This statistical success directly supports themes of championship quest and triumph. The numbers tell a story of consistent victory, of a fighter who has proven their ability to win at the highest level. Each victory in their {record_str} record represents another step toward greatness, making themes of triumph and championship pursuit not just aspirational, but statistically validated.")
-        
-        if 'resilience' in themes_list and losses > 0:
-            bio_paragraphs.append(f"Resilience metrics: Despite {losses} defeats, {fighter_name} maintains a {win_rate*100:.0f}% win rate, demonstrating statistical resilience. This data directly supports themes of resilience and comeback stories—their ability to recover from losses and continue winning shows measurable mental fortitude. The statistics prove that setbacks don't define them; their response to adversity does, making themes of resilience and determination statistically grounded rather than merely aspirational.")
-        
-        if 'veteran_wisdom' in themes_list or total_fights > 15:
-            bio_paragraphs.append(f"Experience metrics: {fighter_name}'s {total_fights} professional bouts represent extensive competitive experience. This volume of competition directly correlates with themes of veteran wisdom and legacy. The statistical record shows a fighter who has accumulated knowledge through extensive competition, with each fight adding to their tactical understanding. This experience is measurable—it shows in their performance metrics, their decision-making, and their ability to adapt, making themes of veteran wisdom and legacy statistically supported rather than abstract concepts.")
-        
-        # Add additional theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle, journalistic theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 3: Storytelling/Narrative
     elif writing_style == 3:
@@ -389,8 +351,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"Today, {fighter_name} steps into the octagon as a {fighting_style.lower()}—someone who {'delivers' if stats['strikes_per_min'] > 5 else 'executes'} {stats['strikes_per_min']:.1f} strikes per minute with {'surgical' if stats['strike_accuracy'] > 0.5 else 'devastating'} {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_desc}Their {stance.lower()} stance has become their signature.")
         bio_paragraphs.append(f"With {wins} victories against {losses} defeats, {fighter_name} {'has proven themselves a force to be reckoned with' if win_rate > 0.7 else 'continues to build their legacy' if win_rate > 0.5 else 'fights with heart and determination'} in every bout.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 4: Dramatic/Intense
     elif writing_style == 4:
@@ -406,8 +368,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         if 'aggression' in themes_list:
             bio_paragraphs.append(f"{fighter_name} doesn't just fight—they {'overwhelm' if stats['strikes_per_min'] > 6 else 'dominate'}, {'destroy' if win_rate > 0.7 else 'conquer'}, {'annihilate' if stats['strike_accuracy'] > 0.6 else 'devastate'} opponents.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 5: Conversational/Casual
     elif writing_style == 5:
@@ -417,8 +379,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"When {fighter_name} fights, you're looking at {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {height_desc}{reach_desc}, fight {stance.lower()}, and have a {'pretty solid' if win_rate > 0.6 else 'decent' if win_rate > 0.5 else 'tough'} record.")
         bio_paragraphs.append(f"With {wins} wins under their belt, {fighter_name} {'is definitely someone to watch' if win_rate > 0.7 else 'keeps improving with every fight' if win_rate > 0.5 else 'never gives up, no matter what'}.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 6: Biographical/Historical
     elif writing_style == 6:
@@ -427,8 +389,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"Throughout their career, {fighter_name} has established themselves as a {fighting_style.lower()} with notable statistics: {stats['strikes_per_min']:.1f} strikes per minute, {stats['strike_accuracy']*100:.0f}% accuracy. {physical_measurements}Stance: {stance}.")
         bio_paragraphs.append(f"Career highlights include {wins} victories, {'demonstrating exceptional skill' if win_rate > 0.7 else 'showing consistent performance' if win_rate > 0.5 else 'displaying remarkable determination'} throughout their time in the sport.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 7: Action-Packed/Thriller
     elif writing_style == 7:
@@ -437,8 +399,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"{stats['strikes_per_min']:.1f} strikes per minute. {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_info}{fighter_name} uses their {stance.lower()} stance to {'devastate' if stats['strike_accuracy'] > 0.5 else 'overwhelm'} opponents.")
         bio_paragraphs.append(f"{wins} wins. {losses} losses. {'Every victory is a statement' if win_rate > 0.7 else 'Every fight is a battle' if win_rate > 0.5 else 'Every round is a war'}.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 8: Reflective/Philosophical
     elif writing_style == 8:
@@ -448,8 +410,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"As a {fighting_style.lower()}, {fighter_name} {'delivers' if stats['strikes_per_min'] > 5 else 'executes'} {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {frame_desc}{reach_desc}their {stance.lower()} stance—each element {'contributes to' if win_rate > 0.6 else 'reflects'} their approach to combat.")
         bio_paragraphs.append(f"With {wins} victories, {fighter_name} {'has learned that success comes from' if win_rate > 0.7 else 'understands that' if win_rate > 0.5 else 'knows that'} {'precision beats power' if stats['strike_accuracy'] > 0.5 else 'persistence overcomes all'}.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 9: Statistical/Fact-Based
     elif writing_style == 9:
@@ -458,8 +420,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"Combat statistics: Strikes landed per minute: {stats['strikes_per_min']:.1f}. Strike accuracy: {stats['strike_accuracy']*100:.0f}%. {height_reach_stats}Stance: {stance}. Win rate: {win_rate*100:.0f}%.")
         bio_paragraphs.append(f"Performance summary: {wins} wins, {losses} losses, {draws} draws. {'Elite-level performance' if win_rate > 0.7 else 'Competitive record' if win_rate > 0.5 else 'Developing fighter'}.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 10: Inspirational/Motivational
     elif writing_style == 10:
@@ -468,8 +430,8 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"With {stats['strikes_per_min']:.1f} strikes per minute and {stats['strike_accuracy']*100:.0f}% accuracy, {fighter_name} {'demonstrates' if stats['strike_accuracy'] > 0.5 else 'shows'} that {'precision and power' if stats['strikes_per_min'] > 5 else 'skill and strategy'} can coexist. {height_reach_desc}Their {stance.lower()} stance is a testament to {'years of training' if age > 30 else 'dedicated practice'}.")
         bio_paragraphs.append(f"{wins} victories stand as proof that {fighter_name} {'has what it takes' if win_rate > 0.7 else 'never backs down' if win_rate > 0.5 else 'fights with heart'}.")
         
-        # Add theme explanations
-        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str)
+        # Add subtle theme connections
+        add_theme_explanations(bio_paragraphs, stats, themes_list, fighter_name, total_fights, wins, losses, win_rate, record_str, age)
     
     # STYLE 11: Minimalist/Concise
     elif writing_style == 11:
@@ -478,19 +440,19 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
         bio_paragraphs.append(f"{stats['strikes_per_min']:.1f} SLpM. {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_short}{stance}.")
         bio_paragraphs.append(f"{wins}W-{losses}L-{draws}D. {'Elite' if win_rate > 0.7 else 'Solid' if win_rate > 0.5 else 'Fighter'}.")
         
-        # Add theme explanations (even for minimalist style, but more concise)
+        # Add subtle theme connections (minimalist style - brief but journalistic)
         if stats['strikes_per_min'] > 5.5:
-            bio_paragraphs.append(f"High-volume striker ({stats['strikes_per_min']:.1f} SLpM) explains aggression and pressure fighting themes.")
+            bio_paragraphs.append(f"Relentless pace: {stats['strikes_per_min']:.1f} strikes per minute. Opponents find no respite.")
         elif stats['strike_accuracy'] > 0.55:
-            bio_paragraphs.append(f"Precision striker ({stats['strike_accuracy']*100:.0f}% accuracy) explains precision and technical mastery themes.")
+            bio_paragraphs.append(f"Surgical precision: {stats['strike_accuracy']*100:.0f}% accuracy. Every shot measured, every strike purposeful.")
         if stats['takedown_accuracy'] > 0.4:
-            bio_paragraphs.append(f"Grappler ({stats['takedown_accuracy']*100:.0f}% takedown accuracy) explains strategy and discipline themes.")
+            bio_paragraphs.append(f"Ground control: {stats['takedown_accuracy']*100:.0f}% takedown success. Dictates where fights take place.")
         if win_rate > 0.7:
-            bio_paragraphs.append(f"Elite record ({win_rate*100:.0f}% win rate) explains championship quest and triumph themes.")
+            bio_paragraphs.append(f"Elite consistency: {win_rate*100:.0f}% win rate. Each victory another step forward.")
         if 'resilience' in themes_list and losses > 0:
-            bio_paragraphs.append(f"Bounced back from {losses} defeats explains resilience and comeback story themes.")
+            bio_paragraphs.append(f"Resilience: {losses} defeats, but each comeback stronger than the last.")
         if total_fights > 15:
-            bio_paragraphs.append(f"{total_fights} fights explains veteran wisdom and legacy themes.")
+            bio_paragraphs.append(f"Experience: {total_fights} bouts. The knowledge shows in the details.")
     
     # Join paragraphs
     biography = " ".join(bio_paragraphs)
