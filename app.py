@@ -254,13 +254,18 @@ def render_sidebar(content_df, fighters_df=None):
         # Narrative Themes filter
         st.write("**Narrative Themes**")
         st.caption("Select themes to find fighters with matching narratives")
-        selected_themes = st.multiselect(
+        # Format themes for display (underscores to spaces)
+        formatted_themes = [theme.replace('_', ' ').title() for theme in all_themes]
+        theme_display_map = {formatted: original for formatted, original in zip(formatted_themes, all_themes)}
+        selected_formatted = st.multiselect(
             "Choose themes", 
-            all_themes, 
-            default=st.session_state.selected_themes, 
+            formatted_themes, 
+            default=[theme.replace('_', ' ').title() for theme in st.session_state.selected_themes], 
             key="theme_filter",
             label_visibility="collapsed"
         )
+        # Convert back to underscore format for internal use
+        selected_themes = [theme_display_map[formatted] for formatted in selected_formatted]
         
         selected_characters = st.multiselect("Characters", all_characters, default=st.session_state.selected_characters, key="character_filter")
         
@@ -363,7 +368,8 @@ def render_content_browser(content_df):
         
         # Display themes and genres compactly
         if content_tags['themes'] or content_tags['genres']:
-            theme_text = ", ".join(content_tags['themes'][:2]) if content_tags['themes'] else ""
+            formatted_themes = [theme.replace('_', ' ').title() for theme in content_tags['themes'][:2]] if content_tags['themes'] else []
+            theme_text = ", ".join(formatted_themes) if formatted_themes else ""
             genre_text = ", ".join(content_tags['genres'][:2]) if content_tags['genres'] else ""
             if theme_text or genre_text:
                 st.caption(f"{theme_text}{' • ' if theme_text and genre_text else ''}{genre_text}")
@@ -382,7 +388,8 @@ def render_fighter_recommendations(selected_genres, selected_themes, selected_ty
     if selected_genres:
         active_filters.append(f"Genres: {', '.join(selected_genres[:3])}")
     if selected_themes:
-        active_filters.append(f"Narratives: {', '.join(selected_themes[:3])}")
+        formatted_selected = [theme.replace('_', ' ').title() for theme in selected_themes[:3]]
+        active_filters.append(f"Narratives: {', '.join(formatted_selected)}")
     if selected_characters:
         active_filters.append(f"Characters: {', '.join(selected_characters[:3])}")
     if selected_content:
@@ -524,7 +531,8 @@ def render_fighter_profile(fighter_name, fighters_df, mapping_df, content_df):
             if fighter_tags['themes']:
                 st.write("**Themes:**")
                 for theme in fighter_tags['themes']:
-                    st.markdown(f'<span class="theme-badge">{theme}</span>', unsafe_allow_html=True)
+                    formatted_theme = theme.replace('_', ' ').title()
+                    st.markdown(f'<span class="theme-badge">{formatted_theme}</span>', unsafe_allow_html=True)
             
             if fighter_tags['character_archetypes']:
                 st.write("**Character Archetypes:**")
@@ -564,7 +572,8 @@ def render_fighter_profile(fighter_name, fighters_df, mapping_df, content_df):
                     if rec.get('common_themes') and str(rec['common_themes']).strip():
                         themes_list = [t.strip() for t in str(rec['common_themes']).split(',') if t.strip()]
                         for theme in themes_list[:4]:
-                            st.markdown(f'<span class="theme-badge">{theme}</span>', unsafe_allow_html=True)
+                            formatted_theme = theme.replace('_', ' ').title()
+                            st.markdown(f'<span class="theme-badge">{formatted_theme}</span>', unsafe_allow_html=True)
                     
                     if rec.get('common_genres') and str(rec['common_genres']).strip():
                         genres_list = [g.strip() for g in str(rec['common_genres']).split(',') if g.strip()]
@@ -630,7 +639,8 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
                 if bundle['content']['themes']:
                     st.write("**Themes:**")
                     for theme in bundle['content']['themes']:
-                        st.markdown(f'<span class="theme-badge">{theme}</span>', unsafe_allow_html=True)
+                        formatted_theme = theme.replace('_', ' ').title()
+                        st.markdown(f'<span class="theme-badge">{formatted_theme}</span>', unsafe_allow_html=True)
             
             # Fighters
             if bundle['fighters']:
@@ -651,7 +661,8 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
                     if fighter['themes']:
                         st.write("**Themes:**")
                         for theme in fighter['themes']:
-                            st.markdown(f'<span class="theme-badge">{theme}</span>', unsafe_allow_html=True)
+                            formatted_theme = theme.replace('_', ' ').title()
+                            st.markdown(f'<span class="theme-badge">{formatted_theme}</span>', unsafe_allow_html=True)
                     
                     st.markdown("---")  # Separator between fighters
             
