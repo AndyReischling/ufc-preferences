@@ -273,76 +273,99 @@ def generate_extended_biography(fighter_profile, fighter_row, fighter_tags):
     # STYLE 0: Journalistic/Reportage
     if writing_style == 0:
         bio_paragraphs.append(f"{fighter_name}, {age}, hails from {birthplace} and carries a professional record of {record_str}. The {nationality} fighter has competed in {total_fights} professional bouts, establishing a reputation as a {fighting_style.lower()}.")
-        bio_paragraphs.append(f"In the octagon, {fighter_name} averages {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {'Standing ' + str(height_ft) + \"'\" + str(height_in) + '\"' + ' with a ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach, ' if height_inches and reach_inches else ''}The fighter employs a {stance.lower()} stance and has demonstrated {'exceptional' if win_rate > 0.7 else 'solid' if win_rate > 0.5 else 'determined'} performance throughout their career.")
+        height_reach_str = ""
+        if height_inches and reach_inches:
+            height_reach_str = f"Standing {height_ft}'{height_in}\" with a {reach_ft}'{reach_in}\" reach, "
+        bio_paragraphs.append(f"In the octagon, {fighter_name} averages {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_str}The fighter employs a {stance.lower()} stance and has demonstrated {'exceptional' if win_rate > 0.7 else 'solid' if win_rate > 0.5 else 'determined'} performance throughout their career.")
         if 'veteran_wisdom' in themes_list:
             bio_paragraphs.append(f"With {total_fights} fights under their belt, {fighter_name} brings experience and tactical knowledge to every matchup.")
     
     # STYLE 1: Poetic/Lyrical
     elif writing_style == 1:
         bio_paragraphs.append(f"From the streets of {birthplace} emerges {fighter_name}—a {fighting_style.lower()} whose journey began {'in youth' if age < 30 else 'years ago'} and has led to {total_fights} professional battles.")
-        bio_paragraphs.append(f"Each strike tells a story: {stats['strikes_per_min']:.1f} per minute, {stats['strike_accuracy']*100:.0f}% finding their mark. {'Their ' + str(height_ft) + \"'\" + str(height_in) + '\" frame, ' if height_inches else ''}their {stance.lower()} stance, their {record_str} record—all woven into the fabric of a fighter who {'dominates' if win_rate > 0.7 else 'perseveres' if win_rate > 0.5 else 'fights'} with {'precision' if stats['strike_accuracy'] > 0.5 else 'relentless determination'}.")
+        frame_str = f"Their {height_ft}'{height_in}\" frame, " if height_inches else ""
+        bio_paragraphs.append(f"Each strike tells a story: {stats['strikes_per_min']:.1f} per minute, {stats['strike_accuracy']*100:.0f}% finding their mark. {frame_str}their {stance.lower()} stance, their {record_str} record—all woven into the fabric of a fighter who {'dominates' if win_rate > 0.7 else 'perseveres' if win_rate > 0.5 else 'fights'} with {'precision' if stats['strike_accuracy'] > 0.5 else 'relentless determination'}.")
         if 'resilience' in themes_list:
             bio_paragraphs.append(f"Through {losses} defeats, {fighter_name} has risen—each loss a lesson, each victory a testament to unbreakable spirit.")
     
     # STYLE 2: Technical/Analytical
     elif writing_style == 2:
         bio_paragraphs.append(f"Technical analysis of {fighter_name} ({age}, {nationality}): Born in {birthplace}, currently holding a {record_str} professional record across {total_fights} bouts.")
-        bio_paragraphs.append(f"Performance metrics: {stats['strikes_per_min']:.1f} SLpM (significant strikes landed per minute), {stats['strike_accuracy']*100:.0f}% accuracy rate. {'Physical attributes: ' + str(height_ft) + \"'\" + str(height_in) + '\" height, ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach. ' if height_inches and reach_inches else ''}Stance: {stance}. {'Takedown accuracy: ' + f\"{stats['takedown_accuracy']*100:.0f}%\" if stats['takedown_accuracy'] > 0 else 'Striking-focused approach.'}")
+        physical_str = f"Physical attributes: {height_ft}'{height_in}\" height, {reach_ft}'{reach_in}\" reach. " if height_inches and reach_inches else ""
+        takedown_str = f"Takedown accuracy: {stats['takedown_accuracy']*100:.0f}%." if stats['takedown_accuracy'] > 0 else "Striking-focused approach."
+        bio_paragraphs.append(f"Performance metrics: {stats['strikes_per_min']:.1f} SLpM (significant strikes landed per minute), {stats['strike_accuracy']*100:.0f}% accuracy rate. {physical_str}Stance: {stance}. {takedown_str}")
         bio_paragraphs.append(f"Win rate analysis: {win_rate*100:.0f}% ({wins}W-{losses}L-{draws}D). {'High-performance fighter' if win_rate > 0.7 else 'Competitive record' if win_rate > 0.5 else 'Developing fighter'} with {'strong finishing ability' if win_rate > 0.7 else 'consistent performance' if win_rate > 0.5 else 'potential for growth'}.")
     
     # STYLE 3: Storytelling/Narrative
     elif writing_style == 3:
         bio_paragraphs.append(f"The story of {fighter_name} begins in {birthplace}, where a {age}-year-old {nationality} athlete discovered their calling in mixed martial arts.")
-        bio_paragraphs.append(f"Today, {fighter_name} steps into the octagon as a {fighting_style.lower()}—someone who {'delivers' if stats['strikes_per_min'] > 5 else 'executes'} {stats['strikes_per_min']:.1f} strikes per minute with {'surgical' if stats['strike_accuracy'] > 0.5 else 'devastating'} {stats['strike_accuracy']*100:.0f}% accuracy. {'At ' + str(height_ft) + \"'\" + str(height_in) + '\" with a ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach, ' if height_inches and reach_inches else ''}Their {stance.lower()} stance has become their signature.")
+        height_reach_desc = f"At {height_ft}'{height_in}\" with a {reach_ft}'{reach_in}\" reach, " if height_inches and reach_inches else ""
+        bio_paragraphs.append(f"Today, {fighter_name} steps into the octagon as a {fighting_style.lower()}—someone who {'delivers' if stats['strikes_per_min'] > 5 else 'executes'} {stats['strikes_per_min']:.1f} strikes per minute with {'surgical' if stats['strike_accuracy'] > 0.5 else 'devastating'} {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_desc}Their {stance.lower()} stance has become their signature.")
         bio_paragraphs.append(f"With {wins} victories against {losses} defeats, {fighter_name} {'has proven themselves a force to be reckoned with' if win_rate > 0.7 else 'continues to build their legacy' if win_rate > 0.5 else 'fights with heart and determination'} in every bout.")
     
     # STYLE 4: Dramatic/Intense
     elif writing_style == 4:
         bio_paragraphs.append(f"{fighter_name}—{age} years old, {nationality}, born in {birthplace}. A {fighting_style.lower()} with {total_fights} fights and a {record_str} record that speaks to {'dominance' if win_rate > 0.7 else 'resilience' if win_rate > 0.5 else 'determination'}.")
-        bio_paragraphs.append(f"In the cage, {fighter_name} is {'relentless' if stats['strikes_per_min'] > 5 else 'methodical'}—{stats['strikes_per_min']:.1f} strikes per minute, {stats['strike_accuracy']*100:.0f}% accuracy. {'Their ' + str(height_ft) + \"'\" + str(height_in) + '\" frame towers' if height_inches and height_inches > 72 else 'Standing ' + str(height_ft) + \"'\" + str(height_in) + '\"' if height_inches else ''} {'with a ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach' if reach_inches else ''}. {stance} stance. {'Every fight is a war' if stats['strikes_per_min'] > 6 else 'Every strike is calculated'}.")
+        frame_desc = ""
+        if height_inches:
+            if height_inches > 72:
+                frame_desc = f"Their {height_ft}'{height_in}\" frame towers"
+            else:
+                frame_desc = f"Standing {height_ft}'{height_in}\""
+        reach_desc = f" with a {reach_ft}'{reach_in}\" reach" if reach_inches else ""
+        bio_paragraphs.append(f"In the cage, {fighter_name} is {'relentless' if stats['strikes_per_min'] > 5 else 'methodical'}—{stats['strikes_per_min']:.1f} strikes per minute, {stats['strike_accuracy']*100:.0f}% accuracy. {frame_desc}{reach_desc}. {stance} stance. {'Every fight is a war' if stats['strikes_per_min'] > 6 else 'Every strike is calculated'}.")
         if 'aggression' in themes_list:
             bio_paragraphs.append(f"{fighter_name} doesn't just fight—they {'overwhelm' if stats['strikes_per_min'] > 6 else 'dominate'}, {'destroy' if win_rate > 0.7 else 'conquer'}, {'annihilate' if stats['strike_accuracy'] > 0.6 else 'devastate'} opponents.")
     
     # STYLE 5: Conversational/Casual
     elif writing_style == 5:
         bio_paragraphs.append(f"Meet {fighter_name}—{age}, from {birthplace}, {nationality}. They've got a {record_str} record after {total_fights} fights, and they're known as a {fighting_style.lower()}.")
-        bio_paragraphs.append(f"When {fighter_name} fights, you're looking at {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {'They stand ' + str(height_ft) + \"'\" + str(height_in) + '\" tall' if height_inches else ''} {'with a ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach' if reach_inches else ''}, fight {stance.lower()}, and have a {'pretty solid' if win_rate > 0.6 else 'decent' if win_rate > 0.5 else 'tough'} record.")
+        height_desc = f"They stand {height_ft}'{height_in}\" tall" if height_inches else ""
+        reach_desc = f" with a {reach_ft}'{reach_in}\" reach" if reach_inches else ""
+        bio_paragraphs.append(f"When {fighter_name} fights, you're looking at {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {height_desc}{reach_desc}, fight {stance.lower()}, and have a {'pretty solid' if win_rate > 0.6 else 'decent' if win_rate > 0.5 else 'tough'} record.")
         bio_paragraphs.append(f"With {wins} wins under their belt, {fighter_name} {'is definitely someone to watch' if win_rate > 0.7 else 'keeps improving with every fight' if win_rate > 0.5 else 'never gives up, no matter what'}.")
     
     # STYLE 6: Biographical/Historical
     elif writing_style == 6:
         bio_paragraphs.append(f"{fighter_name} was born in {birthplace} in {2024 - age if age else 'an unknown year'}. The {nationality} fighter began their professional career and has since compiled a {record_str} record across {total_fights} professional bouts.")
-        bio_paragraphs.append(f"Throughout their career, {fighter_name} has established themselves as a {fighting_style.lower()} with notable statistics: {stats['strikes_per_min']:.1f} strikes per minute, {stats['strike_accuracy']*100:.0f}% accuracy. {'Physical measurements: ' + str(height_ft) + \"'\" + str(height_in) + '\" height, ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach. ' if height_inches and reach_inches else ''}Stance: {stance}.")
+        physical_measurements = f"Physical measurements: {height_ft}'{height_in}\" height, {reach_ft}'{reach_in}\" reach. " if height_inches and reach_inches else ""
+        bio_paragraphs.append(f"Throughout their career, {fighter_name} has established themselves as a {fighting_style.lower()} with notable statistics: {stats['strikes_per_min']:.1f} strikes per minute, {stats['strike_accuracy']*100:.0f}% accuracy. {physical_measurements}Stance: {stance}.")
         bio_paragraphs.append(f"Career highlights include {wins} victories, {'demonstrating exceptional skill' if win_rate > 0.7 else 'showing consistent performance' if win_rate > 0.5 else 'displaying remarkable determination'} throughout their time in the sport.")
     
     # STYLE 7: Action-Packed/Thriller
     elif writing_style == 7:
         bio_paragraphs.append(f"{fighter_name} explodes from {birthplace}—{age} years old, {nationality}, {record_str} record, {total_fights} fights. A {fighting_style.lower()} who {'dominates' if win_rate > 0.7 else 'fights'} with {'brutal' if stats['strikes_per_min'] > 6 else 'surgical'} precision.")
-        bio_paragraphs.append(f"{stats['strikes_per_min']:.1f} strikes per minute. {stats['strike_accuracy']*100:.0f}% accuracy. {'At ' + str(height_ft) + \"'\" + str(height_in) + '\" with ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach, ' if height_inches and reach_inches else ''}{fighter_name} uses their {stance.lower()} stance to {'devastate' if stats['strike_accuracy'] > 0.5 else 'overwhelm'} opponents.")
+        height_reach_info = f"At {height_ft}'{height_in}\" with {reach_ft}'{reach_in}\" reach, " if height_inches and reach_inches else ""
+        bio_paragraphs.append(f"{stats['strikes_per_min']:.1f} strikes per minute. {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_info}{fighter_name} uses their {stance.lower()} stance to {'devastate' if stats['strike_accuracy'] > 0.5 else 'overwhelm'} opponents.")
         bio_paragraphs.append(f"{wins} wins. {losses} losses. {'Every victory is a statement' if win_rate > 0.7 else 'Every fight is a battle' if win_rate > 0.5 else 'Every round is a war'}.")
     
     # STYLE 8: Reflective/Philosophical
     elif writing_style == 8:
         bio_paragraphs.append(f"In {birthplace}, {fighter_name} found their path—a journey that has led to {total_fights} professional fights and a {record_str} record at {age} years old.")
-        bio_paragraphs.append(f"As a {fighting_style.lower()}, {fighter_name} {'delivers' if stats['strikes_per_min'] > 5 else 'executes'} {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {'Their ' + str(height_ft) + \"'\" + str(height_in) + '\" frame, ' if height_inches else ''}{'their ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach, ' if reach_inches else ''}their {stance.lower()} stance—each element {'contributes to' if win_rate > 0.6 else 'reflects'} their approach to combat.")
+        frame_desc = f"Their {height_ft}'{height_in}\" frame, " if height_inches else ""
+        reach_desc = f"their {reach_ft}'{reach_in}\" reach, " if reach_inches else ""
+        bio_paragraphs.append(f"As a {fighting_style.lower()}, {fighter_name} {'delivers' if stats['strikes_per_min'] > 5 else 'executes'} {stats['strikes_per_min']:.1f} strikes per minute with {stats['strike_accuracy']*100:.0f}% accuracy. {frame_desc}{reach_desc}their {stance.lower()} stance—each element {'contributes to' if win_rate > 0.6 else 'reflects'} their approach to combat.")
         bio_paragraphs.append(f"With {wins} victories, {fighter_name} {'has learned that success comes from' if win_rate > 0.7 else 'understands that' if win_rate > 0.5 else 'knows that'} {'precision beats power' if stats['strike_accuracy'] > 0.5 else 'persistence overcomes all'}.")
     
     # STYLE 9: Statistical/Fact-Based
     elif writing_style == 9:
         bio_paragraphs.append(f"Fighter: {fighter_name}. Age: {age}. Nationality: {nationality}. Birthplace: {birthplace}. Record: {record_str} ({total_fights} fights). Classification: {fighting_style.lower()}.")
-        bio_paragraphs.append(f"Combat statistics: Strikes landed per minute: {stats['strikes_per_min']:.1f}. Strike accuracy: {stats['strike_accuracy']*100:.0f}%. {'Height: ' + str(height_ft) + \"'\" + str(height_in) + '\". Reach: ' + str(reach_ft) + \"'\" + str(reach_in) + '\". ' if height_inches and reach_inches else ''}Stance: {stance}. Win rate: {win_rate*100:.0f}%.")
+        height_reach_stats = f"Height: {height_ft}'{height_in}\". Reach: {reach_ft}'{reach_in}\". " if height_inches and reach_inches else ""
+        bio_paragraphs.append(f"Combat statistics: Strikes landed per minute: {stats['strikes_per_min']:.1f}. Strike accuracy: {stats['strike_accuracy']*100:.0f}%. {height_reach_stats}Stance: {stance}. Win rate: {win_rate*100:.0f}%.")
         bio_paragraphs.append(f"Performance summary: {wins} wins, {losses} losses, {draws} draws. {'Elite-level performance' if win_rate > 0.7 else 'Competitive record' if win_rate > 0.5 else 'Developing fighter'}.")
     
     # STYLE 10: Inspirational/Motivational
     elif writing_style == 10:
         bio_paragraphs.append(f"{fighter_name} proves that {'champions are made, not born' if win_rate > 0.7 else 'hard work pays off' if win_rate > 0.5 else 'determination conquers all'}. From {birthplace}, this {age}-year-old {nationality} {fighting_style.lower()} has built a {record_str} record through {total_fights} fights.")
-        bio_paragraphs.append(f"With {stats['strikes_per_min']:.1f} strikes per minute and {stats['strike_accuracy']*100:.0f}% accuracy, {fighter_name} {'demonstrates' if stats['strike_accuracy'] > 0.5 else 'shows'} that {'precision and power' if stats['strikes_per_min'] > 5 else 'skill and strategy'} can coexist. {'Standing ' + str(height_ft) + \"'\" + str(height_in) + '\" with a ' + str(reach_ft) + \"'\" + str(reach_in) + '\" reach, ' if height_inches and reach_inches else ''}Their {stance.lower()} stance is a testament to {'years of training' if age > 30 else 'dedicated practice'}.")
+        height_reach_desc = f"Standing {height_ft}'{height_in}\" with a {reach_ft}'{reach_in}\" reach, " if height_inches and reach_inches else ""
+        bio_paragraphs.append(f"With {stats['strikes_per_min']:.1f} strikes per minute and {stats['strike_accuracy']*100:.0f}% accuracy, {fighter_name} {'demonstrates' if stats['strike_accuracy'] > 0.5 else 'shows'} that {'precision and power' if stats['strikes_per_min'] > 5 else 'skill and strategy'} can coexist. {height_reach_desc}Their {stance.lower()} stance is a testament to {'years of training' if age > 30 else 'dedicated practice'}.")
         bio_paragraphs.append(f"{wins} victories stand as proof that {fighter_name} {'has what it takes' if win_rate > 0.7 else 'never backs down' if win_rate > 0.5 else 'fights with heart'}.")
     
     # STYLE 11: Minimalist/Concise
     elif writing_style == 11:
         bio_paragraphs.append(f"{fighter_name}. {age}. {birthplace}, {nationality}. {record_str} ({total_fights} fights). {fighting_style.lower()}.")
-        bio_paragraphs.append(f"{stats['strikes_per_min']:.1f} SLpM. {stats['strike_accuracy']*100:.0f}% accuracy. {'H: ' + str(height_ft) + \"'\" + str(height_in) + '\" R: ' + str(reach_ft) + \"'\" + str(reach_in) + '\". ' if height_inches and reach_inches else ''}{stance}.")
+        height_reach_short = f"H: {height_ft}'{height_in}\" R: {reach_ft}'{reach_in}\". " if height_inches and reach_inches else ""
+        bio_paragraphs.append(f"{stats['strikes_per_min']:.1f} SLpM. {stats['strike_accuracy']*100:.0f}% accuracy. {height_reach_short}{stance}.")
         bio_paragraphs.append(f"{wins}W-{losses}L-{draws}D. {'Elite' if win_rate > 0.7 else 'Solid' if win_rate > 0.5 else 'Fighter'}.")
     
     # Join paragraphs
