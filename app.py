@@ -3,17 +3,27 @@ Streamlit UFC Fighter Recommendation App
 Main application file
 """
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-from utils import data_loader
-from utils import recommendations
-from utils import themes
-from utils import fighter_profile
-from utils import visualizations
-from utils import bundles
-from utils import fight_finder
-import config
+import sys
+import traceback
+
+try:
+    import streamlit as st
+    import pandas as pd
+    import numpy as np
+    from utils import data_loader
+    from utils import recommendations
+    from utils import themes
+    from utils import fighter_profile
+    from utils import visualizations
+    from utils import bundles
+    from utils import fight_finder
+    import config
+except Exception as e:
+    # If imports fail, show error in Streamlit
+    import streamlit as st
+    st.error(f"Failed to import required modules: {str(e)}")
+    st.code(traceback.format_exc())
+    st.stop()
 
 # Page configuration
 st.set_page_config(
@@ -685,5 +695,10 @@ def render_bundle_recommendations(selected_content, content_df, fighters_df, fig
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {str(e)}")
+        st.code(traceback.format_exc())
+        st.stop()
 
