@@ -11,7 +11,14 @@ from pathlib import Path
 from tqdm import tqdm
 import time
 
-# API configuration - user will provide API key
+# Load environment variables from .env file if it exists
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, will use system env vars
+
+# API configuration - loads from .env file or environment variables
 API_PROVIDER = os.getenv('LLM_API_PROVIDER', 'openai')  # 'openai', 'anthropic', 'google'
 API_KEY = os.getenv('LLM_API_KEY', '')
 

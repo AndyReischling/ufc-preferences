@@ -10,6 +10,13 @@ import re
 import os
 from utils import themes
 
+# Load environment variables from .env file if it exists
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, will use system env vars
+
 # Try to import API generation function if available
 try:
     from generate_unique_lore import generate_extended_biography_with_api
