@@ -20,9 +20,16 @@ except ImportError:
 # Try to load from Streamlit secrets (for Streamlit Cloud deployment)
 try:
     import streamlit as st
-    if hasattr(st, 'secrets') and 'llm_api' in st.secrets:
-        USE_API_FOR_BIO = st.secrets['llm_api'].get('use_for_bio', 'true').lower() == 'true'
-    else:
+    try:
+        if hasattr(st, 'secrets') and st.secrets is not None:
+            if 'llm_api' in st.secrets:
+                USE_API_FOR_BIO = st.secrets['llm_api'].get('use_for_bio', 'true').lower() == 'true'
+            else:
+                USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
+        else:
+            USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
+    except (FileNotFoundError, AttributeError, KeyError):
+        # Secrets not available, use environment variables
         USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
 except (ImportError, RuntimeError):
     # Not in Streamlit context, use environment variables
