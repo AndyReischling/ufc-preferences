@@ -1,3 +1,7 @@
 .env
 # API keys
 *.env
+.streamlit/secrets.toml
+# Keep example file
+!.streamlit/secrets.toml.example
+DEPLOYMENT_SECRETS.txt

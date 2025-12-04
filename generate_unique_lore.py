@@ -11,16 +11,28 @@ from pathlib import Path
 from tqdm import tqdm
 import time
 
-# Load environment variables from .env file if it exists
+# Load environment variables from .env file if it exists (local development)
 try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
     pass  # python-dotenv not installed, will use system env vars
 
-# API configuration - loads from .env file or environment variables
-API_PROVIDER = os.getenv('LLM_API_PROVIDER', 'openai')  # 'openai', 'anthropic', 'google'
-API_KEY = os.getenv('LLM_API_KEY', '')
+# Try to load from Streamlit secrets (for Streamlit Cloud deployment)
+try:
+    import streamlit as st
+    # Streamlit secrets are available
+    if hasattr(st, 'secrets') and 'llm_api' in st.secrets:
+        API_KEY = st.secrets['llm_api']['key']
+        API_PROVIDER = st.secrets['llm_api'].get('provider', 'openai')
+    else:
+        # Fall back to environment variables
+        API_KEY = os.getenv('LLM_API_KEY', '')
+        API_PROVIDER = os.getenv('LLM_API_PROVIDER', 'openai')
+except (ImportError, RuntimeError):
+    # Not in Streamlit context, use environment variables
+    API_KEY = os.getenv('LLM_API_KEY', '')
+    API_PROVIDER = os.getenv('LLM_API_PROVIDER', 'openai')
 
 def call_llm_api(prompt, system_prompt=None, max_tokens=500):
     """

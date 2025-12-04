@@ -10,17 +10,27 @@ import re
 import os
 from utils import themes
 
-# Load environment variables from .env file if it exists
+# Load environment variables from .env file if it exists (local development)
 try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
     pass  # python-dotenv not installed, will use system env vars
 
+# Try to load from Streamlit secrets (for Streamlit Cloud deployment)
+try:
+    import streamlit as st
+    if hasattr(st, 'secrets') and 'llm_api' in st.secrets:
+        USE_API_FOR_BIO = st.secrets['llm_api'].get('use_for_bio', 'true').lower() == 'true'
+    else:
+        USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
+except (ImportError, RuntimeError):
+    # Not in Streamlit context, use environment variables
+    USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
+
 # Try to import API generation function if available
 try:
     from generate_unique_lore import generate_extended_biography_with_api
-    USE_API_FOR_BIO = os.getenv('USE_API_FOR_BIO', 'false').lower() == 'true'
 except ImportError:
     USE_API_FOR_BIO = False
     generate_extended_biography_with_api = None
