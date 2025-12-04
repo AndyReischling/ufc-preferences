@@ -10,6 +10,37 @@ import re
 import config
 
 
+def format_theme_for_display(theme: str) -> str:
+    """
+    Format theme for display by replacing underscores with spaces and capitalizing.
+    Converts "championship_quest" to "Championship Quest"
+    
+    Args:
+        theme: Theme string with underscores
+    
+    Returns:
+        Formatted theme string with spaces
+    """
+    if not theme or pd.isna(theme):
+        return ""
+    return str(theme).replace('_', ' ').title()
+
+
+def format_themes_for_display(themes: list) -> list:
+    """
+    Format a list of themes for display.
+    
+    Args:
+        themes: List of theme strings
+    
+    Returns:
+        List of formatted theme strings
+    """
+    if not themes:
+        return []
+    return [format_theme_for_display(theme) for theme in themes if theme and pd.notna(theme)]
+
+
 def parse_list_column(value):
     """Parse string representation of list or return list as-is"""
     # Handle pandas Series/arrays - extract scalar value
