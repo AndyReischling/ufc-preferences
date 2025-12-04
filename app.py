@@ -3,13 +3,13 @@ Streamlit UFC Fighter Recommendation App
 Main application file
 """
 
+import streamlit as st
+import pandas as pd
+import numpy as np
 import sys
 import traceback
 
 try:
-    import streamlit as st
-    import pandas as pd
-    import numpy as np
     from utils import data_loader
     from utils import recommendations
     from utils import themes
@@ -20,7 +20,6 @@ try:
     import config
 except Exception as e:
     # If imports fail, show error in Streamlit
-    import streamlit as st
     st.error(f"Failed to import required modules: {str(e)}")
     st.code(traceback.format_exc())
     st.stop()
